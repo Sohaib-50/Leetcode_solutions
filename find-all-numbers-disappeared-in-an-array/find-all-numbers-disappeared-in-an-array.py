@@ -1,15 +1,15 @@
 class Solution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        nums_counter = {}
+        # mark every index i for which i + 1 exists in nums
+        for i in range(len(nums)):
+            index_to_mark = abs(nums[i]) - 1
+            nums[index_to_mark] = abs(nums[index_to_mark]) * -1
+        
+        # find out all indexes for which the number at the index is positive
+        # that means  (index + 1) doesnt exist in the array nums 
         ans = []
-        for i in range(1, len(nums) + 1):
-            nums_counter[i] = 0
+        for i in range(len(nums)):
+            if nums[i] > 0:  # positive
+                ans.append(i + 1)
         
-        for i in nums:
-            nums_counter[i] += 1
-        
-        for i in nums_counter:
-            if nums_counter[i] == 0:
-                ans.append(i)
-                
         return ans
