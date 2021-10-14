@@ -19,12 +19,20 @@ class Solution:
             else:
                 high = mid - 1
                 
-        # linear search to find last occurance of target
+        # binary search to find last occurance of target
         if ans[0] != -1:  # target exist in array
-            current = ans[0]
-            while (current < len(nums)) and (nums[current] == target):
-                current += 1
-            ans[1] = current - 1
-
+            low = ans[0]
+            high = nums_len - 1
+            while (ans[1] == -1):
+                mid = (high + low) // 2
+                if nums[mid] == target:
+                    if ((mid == nums_len - 1) or (nums[mid + 1] != target)): # at last occurance of target
+                        ans[1] = mid
+                    else:
+                        low = mid + 1
+                    
+                else:  # answer must be in left half
+                    high = mid - 1
+                    
         return ans
         
