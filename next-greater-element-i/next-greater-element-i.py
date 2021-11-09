@@ -1,20 +1,15 @@
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        next_greatests = {}
+        stacc = []
+        
+        for num in nums2:
+            while len(stacc) != 0 and num > stacc[-1]:
+                next_greatests[stacc.pop()] = num
+            stacc.append(num)
+        
         ans = []
-        for i in nums1:
-            num_found = False
-            next_greatest = -1
-            for j in nums2:
-                if j == i:
-                    num_found = True
-                elif num_found:
-                    if j > i:
-                        next_greatest = j
-                        break
-            ans.append(next_greatest)
+        for num in nums1:
+            ans.append(next_greatests.get(num, -1))
+            
         return ans
-
-    
-    
-
-
