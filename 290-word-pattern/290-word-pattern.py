@@ -5,16 +5,16 @@ class Solution:
             return False
         
         pattern_word_mappings = {}
-        word_pattern_mappings = {}
+        already_mapped_words = set()
         for i in range(len(pattern)):
-            if not(pattern[i] in pattern_word_mappings) and not(s_words[i] in word_pattern_mappings):
-                pattern_word_mappings[pattern[i]] = s_words[i]
-                word_pattern_mappings[s_words[i]] = pattern[i]
-            if pattern[i] in pattern_word_mappings:
-                if (pattern_word_mappings[pattern[i]] != s_words[i]):
+            if pattern[i] not in pattern_word_mappings:
+                if s_words[i] in already_mapped_words:
                     return False
-            if s_words[i] in word_pattern_mappings:
-                if word_pattern_mappings[s_words[i]] != pattern[i]:
+                else:
+                    pattern_word_mappings[pattern[i]] = s_words[i]
+                    already_mapped_words.add(s_words[i])
+            else:
+                if pattern_word_mappings[pattern[i]] != s_words[i]:
                     return False
                 
         return True
