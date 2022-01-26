@@ -4,15 +4,17 @@ class Solution:
         final_t = []
         
         for char in s:
-            if char != "#":
+            if char == "#":
+                if final_s:
+                    final_s.pop()
+            else:
                 final_s.append(char)
-            elif len(final_s) > 0:
-                final_s.pop()
                 
         for char in t:
-            if char != "#":
+            if char == "#":
+                if final_t:
+                    final_t.pop()
+            else:
                 final_t.append(char)
-            elif len(final_t) > 0:
-                final_t.pop()
-    
-        return final_t == final_s
+                
+        return final_s == final_t
