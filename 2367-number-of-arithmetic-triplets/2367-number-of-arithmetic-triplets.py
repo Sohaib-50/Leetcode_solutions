@@ -1,12 +1,10 @@
 class Solution:
     def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
         answer = 0
-        lookup = {}
-        for i in range(len(nums)):
-            lookup[nums[i]] = i
+        lookup = set(nums)
         
         for i, n in enumerate(nums):
-            if lookup.get(n + diff) and lookup.get(n + (2 * diff)):
+            if ((n + diff) in lookup) and ((n + (2 * diff)) in lookup):
                 answer += 1
         
         return answer
