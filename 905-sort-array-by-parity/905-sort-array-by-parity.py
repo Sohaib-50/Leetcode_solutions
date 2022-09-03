@@ -1,15 +1,20 @@
 class Solution:
     def sortArrayByParity(self, nums: List[int]) -> List[int]:
-        last_available_index = 0
-        while (last_available_index < len(nums)) and (nums[last_available_index] % 2 == 0):
-            last_available_index += 1
+        # Quick Sort Approach
         
-        if last_available_index == len(nums):
-            return nums
+        low = 0
+        high = len(nums) -1
         
-        for i in range(1, len(nums)):
-            if nums[i] % 2 == 0 and last_available_index < i:
-                nums[last_available_index], nums[i] = nums[i], nums[last_available_index]
-                last_available_index += 1
+        while low < high:
+            if (nums[low] % 2 == 1) and (nums[high] % 2 == 0):
+                nums[low], nums[high] = nums[high], nums[low]
+                
+            if nums[low] % 2 == 0:
+                low += 1
+            
+            if nums[high] % 2 == 1:
+                high -= 1
         
         return nums
+            
+            
