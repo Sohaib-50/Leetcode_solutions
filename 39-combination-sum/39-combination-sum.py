@@ -1,26 +1,22 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        def solver(target, current_index, current_sequence, output):
-            if target == 0:
-                output.append(current_sequence)
-                return
-            elif (target < 0) or (current_index >= len(candidates)):
-                return
-            
-            current_num = candidates[current_index]
-            
-            # include current index
-            solver(target - current_num,
-                   current_index,
-                   current_sequence + [current_num],
-                   output)
-            
-            # don't include current index
-            solver(target,
-                   current_index + 1,
-                   current_sequence,
-                   output)
-            
-        output = []
-        solver(target, 0, [], output)
-        return output
+        answer = []
+        
+        def f(current_index, current_sum, current_combo):
+
+            if current_sum == target:
+                answer.append(current_combo)
+                return 
+
+            if current_sum > target:
+                return 
+
+            for idx in range(current_index, len(candidates)):
+                current_candidate = candidates[idx]
+                current_sum += current_candidate
+                f(idx, current_sum, current_combo[:] + [current_candidate])
+                current_sum -= current_candidate
+
+        f(0, 0, [])
+
+        return answer
