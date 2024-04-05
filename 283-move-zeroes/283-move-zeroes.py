@@ -3,11 +3,23 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        last_non_zero_idx = 0
-        
+        next_nonzero_ptr = -1
         for i in range(len(nums)):
+            if nums[i] == 0:
+                next_nonzero_ptr = i
+                break
+
+        if next_nonzero_ptr == -1 or next_nonzero_ptr == len(nums) - 1:
+            return
+
+        i = next_nonzero_ptr + 1
+        while i < len(nums):
+
             if nums[i] != 0:
-                nums[i], nums[last_non_zero_idx] = nums[last_non_zero_idx], nums[i]
-                last_non_zero_idx += 1
-            
-        
+                # swap
+                nums[next_nonzero_ptr] = nums[i]
+                nums[i] = 0 
+                next_nonzero_ptr += 1
+            i += 1
+
+        return
