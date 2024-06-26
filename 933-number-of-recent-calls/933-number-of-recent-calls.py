@@ -1,18 +1,19 @@
 class RecentCounter:
 
     def __init__(self):
-        self.requests = []
-        self.top = -1
+        self.recent_requests = []
+        self.RECENT_LIMIT = 3000
 
     def ping(self, t: int) -> int:
-        self.requests.append(t)
-        self.top += 1
-        x = self.top
-        result = 0
-        while self.requests[x] >= (t - 3000) and x >= 0:
-            result += 1
-            x -= 1
-        return result
+        # print(f'Call to ping with t = {t}:')
+        # print(self.recent_requests)
+        self.recent_requests.append(t)
+
+        while self.recent_requests and self.recent_requests[0] < (t - self.RECENT_LIMIT):
+            self.recent_requests.pop(0)
+
+        # print(self.recent_requests, "\n")
+        return len(self.recent_requests)
 
 
 # Your RecentCounter object will be instantiated and called as such:
