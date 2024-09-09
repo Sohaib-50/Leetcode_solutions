@@ -5,14 +5,8 @@ class Solution:
         # visit all rooms whose keys are found
         # for each room explore further (dfs)
 
-        i = 0
-        while (i < len(rooms)) and (len(rooms[i]) == 0):
-            i += 1
-        if i == len(rooms):
-            return False
-
-        stack = [key for key in rooms[i]]
-        visited = {i}
+        stack = [key for key in rooms[0]]
+        visited = {0}
         while stack:
             room = stack.pop()
             visited.add(room)
