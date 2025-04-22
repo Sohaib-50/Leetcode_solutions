@@ -1,14 +1,31 @@
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        max_sofar = float('-inf')
-        l = 0 
+        
+        # attempt 1: brute force try all possible containers- fails due to Time Limit Exceeded
+        # max_area = 0
+        # for i in range(len(height) - 1):
+        #     for j in range(i + 1, len(height)):
+        #         max_area = max(
+        #             max_area,
+        #             (j - i) * min(height[i], height[j])
+        #         )
+        # return max_area
+
+        # attempt 2: Start with widest container, move inwards by moving from side of shorter height
+        # Intuition: max area = max height * max width
+        max_area = 0
+        l = 0
         r = len(height) - 1
+
         while l < r:
-            max_sofar = max(max_sofar, 
+            max_area = max(
+                max_area,
                 (r - l) * min(height[r], height[l])
             )
-            if height[l] < height[r]:
-                l += 1
-            else:
+        
+            if height[l] > height[r]:
                 r -= 1
-        return max_sofar
+            else:
+                l += 1
+            
+        return max_area
